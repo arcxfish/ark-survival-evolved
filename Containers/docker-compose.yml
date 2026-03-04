@@ -1,0 +1,20 @@
+services:
+  server-ark:
+    build: .
+    image: ark-server-on-ubuntu-2404:1.0
+    container_name: server-ark
+    user: "1000:1000"
+    volumes:
+      - .:/home/ubuntu
+      - ./resource:/home/ubuntu/resource
+    ports:
+      - "7777:7777/udp"
+      - "7778:7778/udp"
+      - "27015:27015/udp"
+    ulimits:
+      nofile:
+        soft: 1000000
+        hard: 1000000
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
